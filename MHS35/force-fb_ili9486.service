@@ -1,0 +1,20 @@
+[Unit]
+Description=Load fb_ili9486 module for ILI9486 Display
+#After=dev-spi0.device
+#Requires=dev-spi0.device
+#checar cual es la ruta para spi
+ConditionPathExists=/dev/spi0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/modprobe fb_ili9486
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
