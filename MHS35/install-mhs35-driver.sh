@@ -16,9 +16,9 @@
 sudo cp mhs35-overlay.dtbo /boot/overlays/
 
 #CHECK /boot/firmware/config.txt or /boot/config.txt
-configPath = /boot/firmware/config.txt
-if [ -f /boot/firmware/config.txt ]; then
-	configPath = /boot/firmware/config.txt
+configPath='/boot/config.txt'
+if [ -f '/boot/firmware/config.txt' ]; then
+	configPath='/boot/firmware/config.txt'
 fi
 
 #ADD configs
@@ -34,7 +34,7 @@ sudo echo "hdmi_group=2" >> "$configPath"
 sudo echo "hdmi_cvt 480 320 60 6 0 0 0" >> "$configPath"
 sudo echo "hdmi_drive=2" >> "$configPath"
 #add the overlay and minimal config
-sudo echo "dtoverlay=mhs35:rotate=270" >> "$configPath"
+sudo echo "dtoverlay=mhs35-overlay:rotate=270" >> "$configPath"
 
 #COPY extra configs
 #default rotation is 270 in 99-calibration.conf
