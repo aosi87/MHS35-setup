@@ -1,4 +1,6 @@
 #!/bin/bash
+#Utility use if the file shows trailing CR errors, this will remove \r
+#sed -i 's/\r$//' install-mhs35-driver.sh
 
 #CHECKS
 # if [ -f /etc/X11/xorg.conf.d/40-libinput.conf ]; then
@@ -12,7 +14,7 @@
 # fi
 
 #COPY OVERLAYS
-#sudo cp ./MHS35/mhs35-overlay.dtb /boot/overlays/
+sudo cp mhs35-overlay.dtb /boot/overlays/
 sudo cp mhs35-overlay.dtbo /boot/overlays/
 
 #CHECK /boot/firmware/config.txt or /boot/config.txt
@@ -53,7 +55,8 @@ sudo cp -rf mhs35-fbcp.service /etc/systemd/system/mhs35-fbcp.service
 
 #ADD extra module preconfigurations for kernel
 #sudo echo "spi_bcm2835" >> /etc/modules
-#sudo echo "fb_ili9486" >> /etc/modules
+#this makes everything work. dunno why yet. the service finds the resource faster this way.
+sudo echo "fb_ili9486" >> /etc/modules
 
 
 #INSTALL custom fbpc compiled for rpi0w
@@ -70,3 +73,6 @@ sudo apt install libraspberrypi0 -y
 #CONFIGURE systemd startup
 sudo systemctl enable mhs35-fbcp.service
 sudo systemctl start mhs35-fbcp.service
+
+sudo reboot
+exit 0
