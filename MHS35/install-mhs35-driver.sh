@@ -21,6 +21,10 @@ if [ -f '/boot/firmware/config.txt' ]; then
 	configPath='/boot/firmware/config.txt'
 fi
 
+#COMMENT configs
+#disable default hdmi driver
+sudo sed -i '/^[^#]/ s/\(^.*dtoverlay=vc4-kms-v3d.*$\)/#\1/' "$configPath"
+
 #ADD configs
 #pi hardware
 #sudo echo "dtparam=i2c_arm=on" >> $configPath
@@ -56,6 +60,8 @@ sudo cp -rf mhs35-fbcp.service /etc/systemd/system/mhs35-fbcp.service
 sudo install fbcp /usr/local/bin/fbcp
 
 #INSTALL evdev to handle touch screen capabilities
+#If we use the precompiled fbcp we need to install shared libs for graphic and hw
+sudo apt install libraspberrypi0 -y
 #sudo apt-get install xserver-xorg-input-evdev -y
 
 #MODIFY X11 touch init steps
